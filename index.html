@@ -64,7 +64,7 @@
       var num = 1;
 
       function getValueInput() {
-        num = document.getElementById("pokemon").value;
+        num = document.getElementById("pokemon").value.toLowerCase();
         document.getElementById("pokemon").value = "";
         ajax({
           url: `${BASE_URL}pokemon/${num}`,
