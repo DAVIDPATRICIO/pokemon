@@ -17,22 +17,34 @@
         text-transform: uppercase;
         text-align: center;
         color: #96502d;
+        position: relative;
+        top: -13vh;
       }
+
+      h1 {
+        margin-bottom: 0;
+        font-size: 9vh;
+      }
+
       input {
         height: 5vh;
         display: inline;
       }
       button {
-        height: 5vh;
+        text-align: center;
+        position: relative;
+        height: 5.7vh;
+        margin-left: -3%;
       }
       img {
         padding: auto;
         margin: auto;
+        margin-top: -1vh;
         margin-bottom: -6vh;
         align-items: center;
         display: flex;
         vertical-align: center;
-        height: 20vh;
+        height: 30vh;
         animation: 10s pokemon infinite linear;
       }
       p {
@@ -52,8 +64,9 @@
   </head>
   <body>
     <div>
+      <h1>Pokedex</h1>
       <input type="text" id="pokemon" placeholder="Pokemon name or ID" />
-      <button onclick="getValueInput()">Mostar</button>
+      <button onclick="getValueInput()">🔎</button>
       <img src="" alt="" id="image" />
       <p id="name"></p>
     </div>
@@ -61,7 +74,7 @@
       const BASE_URL = "https://pokeapi.co/api/v2/";
       const $image = document.querySelector("#image");
       const $name = document.querySelector("#name");
-      var num = 1;
+      var num = 0;
 
       function getValueInput() {
         num = document.getElementById("pokemon").value.toLowerCase();
@@ -77,12 +90,21 @@
       }
 
       function renderError(status) {
-        $name.textContent = `Pokemon not found`;
+        if (num == null || num == 0 || num == "") {
+          $name.textContent = `searching`;
+        } else {
+          $name.textContent = `Pokemon not found`;
+        }
         $image.setAttribute("src", "");
       }
       function renderPokemon(pokemon) {
-        $name.textContent = pokemon.name;
-        $image.setAttribute("src", pokemon.sprites.front_default);
+        if (pokemon.sprites == undefined) {
+          $name.textContent = `searching`;
+          $image.setAttribute("src", "");
+        } else {
+          $name.textContent = pokemon.name;
+          $image.setAttribute("src", pokemon.sprites.front_default);
+        }
       }
 
       function ajax({
