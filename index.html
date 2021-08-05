@@ -4,6 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" type="image/png" href="img/pokebola.png" sizes="16x16" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="img/pokebola (1).png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="img/pokebola (2).png"
+      sizes="64x64"
+    />
     <title>Pokedex</title>
     <style>
       body {
@@ -43,17 +56,37 @@
         position: relative;
         width: 5vh;
         height: 5vh;
+        top: 1.6vh;
         margin-left: -1vh;
         padding: 0;
         font-size: 2.2vh;
         border-radius: 30%;
         border-color: #212121;
         box-shadow: 5px 5px 4px #191919;
-        text-shadow: 1px 1px 2px #191919;
       }
       button:active {
         transform: scale(0.9);
       }
+
+      button img {
+        margin: auto;
+        margin-top: 0.5vh;
+        margin-left: 0.4vh;
+        padding: auto;
+        align-items: center;
+        text-align: center;
+        width: 4vh;
+        height: 4vh;
+        transform: rotate(20deg);
+        animation: none;
+        text-shadow: 1px 1px 2px #191919;
+      }
+      button img:active {
+        margin-top: 0.5vh;
+        transform: scale(0.9);
+        transform: rotate(20deg);
+      }
+
       img {
         padding: auto;
         margin: auto;
@@ -85,7 +118,7 @@
       <h1>Pokedex</h1>
       <div class="pokeball" />
       <input type="text" id="pokemon" placeholder=" Pokemon name or ID" />
-      <button onclick="getValueInput()">🔎</button>
+      <button onclick="getValueInput()"><img src="img/lupa.png" /></button>
       <img src="" alt="" id="image" />
       <p id="name"></p>
     </div>
