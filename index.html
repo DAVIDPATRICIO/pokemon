@@ -17,101 +17,8 @@
       href="img/pokebola (2).png"
       sizes="64x64"
     />
+    <link rel="stylesheet" href="main.css" type="text/css" />
     <title>Pokedex</title>
-    <style>
-      body {
-        height: 97vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: system-ui;
-        font-size: 8vh;
-        text-transform: uppercase;
-        text-align: center;
-        color: #96502d;
-        position: relative;
-        top: -11vh;
-        -ms-text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%;
-        overflow-x: hidden;
-      }
-
-      h1 {
-        margin-bottom: 0;
-        font-size: 9vh;
-        text-shadow: 5px 5px 4px #191919;
-      }
-
-      input {
-        height: 5vh;
-        display: inline;
-        border-color: #212121;
-        border-radius: 2vh;
-        outline: none;
-        box-shadow: 5px 5px 4px #191919;
-      }
-
-      button {
-        text-align: center;
-        position: relative;
-        width: 5vh;
-        height: 5vh;
-        top: 1.6vh;
-        margin-left: -1vh;
-        padding: 0;
-        font-size: 2.2vh;
-        border-radius: 30%;
-        border-color: #212121;
-        box-shadow: 5px 5px 4px #191919;
-      }
-      button:active {
-        transform: scale(0.9);
-      }
-
-      button img {
-        margin: auto;
-        margin-top: 0.5vh;
-        margin-left: 0.4vh;
-        padding: auto;
-        align-items: center;
-        text-align: center;
-        width: 4vh;
-        height: 4vh;
-        transform: rotate(20deg);
-        animation: none;
-        text-shadow: 1px 1px 2px #191919;
-      }
-      button img:active {
-        margin-top: 0.5vh;
-        transform: scale(0.9);
-        transform: rotate(20deg);
-      }
-
-      img {
-        padding: auto;
-        margin: auto;
-        margin-top: -1vh;
-        margin-bottom: -5vh;
-        align-items: center;
-        display: flex;
-        vertical-align: center;
-        height: 30vh;
-        animation: 10s pokemon infinite linear;
-      }
-      p {
-        margin: 0;
-        animation: 10s pokemon infinite linear;
-      }
-
-      @keyframes pokemon {
-        0% {
-          transform: rotateY(0);
-        }
-        100% {
-          transform: rotateY(360deg);
-        }
-      }
-    </style>
   </head>
   <body>
     <div>
@@ -122,6 +29,7 @@
       <img src="" alt="" id="image" />
       <p id="name"></p>
     </div>
+    <script src="mian.js"></script>
     <script>
       const BASE_URL = "https://pokeapi.co/api/v2/";
       const BaseURL = "https://pokeapi.co/api/v2/";
