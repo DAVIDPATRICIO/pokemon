@@ -4,10 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>XML HTTP Request</title>
+    <title>Pokedex</title>
     <style>
       body {
-        background-image: linear-gradient(#cc7339 0%, #fcfbfd 100%);
         height: 97vh;
         display: flex;
         align-items: center;
@@ -27,19 +26,33 @@
       h1 {
         margin-bottom: 0;
         font-size: 9vh;
+        text-shadow: 5px 5px 4px #191919;
       }
 
       input {
         height: 5vh;
         display: inline;
+        border-color: #212121;
+        border-radius: 2vh;
+        outline: none;
+        box-shadow: 5px 5px 4px #191919;
       }
+
       button {
         text-align: center;
         position: relative;
-        height: 5.7vh;
+        width: 5vh;
+        height: 5vh;
         margin-left: -1vh;
-        padding-top: 0.5vh;
-        padding-bottom: 0.8vh;
+        padding: 0;
+        font-size: 2.2vh;
+        border-radius: 30%;
+        border-color: #212121;
+        box-shadow: 5px 5px 4px #191919;
+        text-shadow: 1px 1px 2px #191919;
+      }
+      button:active {
+        transform: scale(0.9);
       }
       img {
         padding: auto;
@@ -70,13 +83,15 @@
   <body>
     <div>
       <h1>Pokedex</h1>
-      <input type="text" id="pokemon" placeholder="Pokemon name or ID" />
+      <div class="pokeball" />
+      <input type="text" id="pokemon" placeholder=" Pokemon name or ID" />
       <button onclick="getValueInput()">🔎</button>
       <img src="" alt="" id="image" />
       <p id="name"></p>
     </div>
     <script>
       const BASE_URL = "https://pokeapi.co/api/v2/";
+      const BaseURL = "https://pokeapi.co/api/v2/";
       const $image = document.querySelector("#image");
       const $name = document.querySelector("#name");
       var num = 0;
@@ -92,7 +107,23 @@
           done: renderPokemon,
           error: renderError,
         });
+        ajaxColor({
+          url: `${BaseURL}pokemon-color/${num}`,
+          // method: 'GET',
+          // async: true,
+          // responseType: 'json',
+          done: renderColorPokemon,
+          error: renderColorError,
+        });
       }
+
+      const node = document.getElementById("pokemon");
+      node.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+          // Do work
+          getValueInput();
+        }
+      });
 
       function renderError(status) {
         if (num == null || num == 0 || num == "") {
@@ -102,15 +133,19 @@
         }
         $image.setAttribute("src", "");
       }
+
       function renderPokemon(pokemon) {
         if (pokemon.sprites == undefined) {
           $name.textContent = `searching`;
           $image.setAttribute("src", "");
         } else {
-          console.log(pokemon);
           $name.textContent = "#" + pokemon.id + " " + pokemon.name;
           $image.setAttribute("src", pokemon.sprites.front_default);
         }
+      }
+
+      function renderColorPokemon(pokemon) {
+        document.body.style.background = pokemon.name;
       }
 
       function ajax({
@@ -135,6 +170,48 @@
               return "completed";
           }
         }
+
+        const request = new XMLHttpRequest();
+        request.responseType = responseType;
+        console.log(status(request.readyState), request.readyState);
+
+        request.onreadystatechange = () => {
+          console.log(status(request.readyState), request.readyState);
+          if (request.readyState === 4) {
+            if (request.status === 200) {
+              done(request.response);
+            } else {
+              error(request.status);
+            }
+          }
+        };
+        request.open(method, url, async);
+        request.send(null);
+      }
+
+      function ajaxColor({
+        url,
+        method = "GET",
+        async = true,
+        done = () => {},
+        error = () => {},
+        responseType = "json",
+      }) {
+        function status(readyState) {
+          switch (readyState) {
+            case 0:
+              return "uninitilized";
+            case 1:
+              return "loading";
+            case 2:
+              return "loaded";
+            case 3:
+              return "interactive";
+            case 4:
+              return "completed";
+          }
+        }
+
         const request = new XMLHttpRequest();
         request.responseType = responseType;
         console.log(status(request.readyState), request.readyState);
@@ -154,13 +231,39 @@
       }
 
       ajax({
-        url: `${BASE_URL}pokemon/${num}`,
+        url: `${BASE_URL}pokemon-color/${num}`,
         // method: 'GET',
         // async: true,
         // responseType: 'json',
         done: renderPokemon,
         error: renderError,
       });
+
+      ajaxColor({
+        url: `${BaseURL}pokemon-color/${num}`,
+        // method: 'GET',
+        // async: true,
+        // responseType: 'json',
+        done: renderColorPokemon,
+        error: renderColorError,
+      });
+
+      function renderColorPokemon(pokemon) {
+        if (pokemon.sprites == undefined) {
+          document.body.style.background =
+            "linear-gradient(#cc7339 0%, #fcfbfd 100%)";
+        } else {
+          document.body.style.background = pokemon.name;
+        }
+
+        console.log(pokemon);
+        document.body.style.background = pokemon.name;
+      }
+
+      function renderColorError(pokemon) {
+        document.body.style.background =
+          "linear-gradient(#cc7339 0%, #fcfbfd 100%)";
+      }
     </script>
   </body>
 </html>
