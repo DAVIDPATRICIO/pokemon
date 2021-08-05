@@ -44,8 +44,8 @@
       img {
         padding: auto;
         margin: auto;
-        margin-top: -2vh;
-        margin-bottom: -6vh;
+        margin-top: -1vh;
+        margin-bottom: -5vh;
         align-items: center;
         display: flex;
         vertical-align: center;
@@ -107,7 +107,8 @@
           $name.textContent = `searching`;
           $image.setAttribute("src", "");
         } else {
-          $name.textContent = pokemon.name;
+          console.log(pokemon);
+          $name.textContent = "#" + pokemon.id + " " + pokemon.name;
           $image.setAttribute("src", pokemon.sprites.front_default);
         }
       }
